@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {connectWallet} from "../../utils/connectWallet.jsx"
+import {handleAccountChange} from "../../utils/handleAccountChange.jsx"
+import {handleChainChange} from "../../utils/handleChainChange.jsx"
 import Web3Context from "../../context/Web3Context"
 import Button from "../Button/Button";
 
 const Wallet = ({children}) => {
+
   const [isLoading,setIsLoading]=useState(false);
   const [state,setState]=useState({
     provider:null,
@@ -12,24 +15,20 @@ const Wallet = ({children}) => {
     stakeTokenContract:null,
     chainId:null
   })
-  window.ethereum.on('chainChanged',async()=>{
-    let chainIdHex = await window.ethereum.request({ method: 'eth_chainId' });
-    const chainId= parseInt(chainIdHex, 16);
-    setState(prevState => ({ ...prevState, chainId }));
-  });
 
-  window.ethereum.on('accountsChanged', async()=>{
-    const accounts = await window.ethereum.request({
-      method: "eth_requestAccounts",
-    });
-    const selectedAccount=accounts[0];
-    setState(prevState => ({ ...prevState, selectedAccount }));
-  })
+  useEffect(()=>{
+    window.ethereum.on('accountsChanged',()=>handleAccountChange(setState));
+    window.ethereum.on('chainChanged',()=>handleChainChange(setState));
+    return ()=>{
+      window.ethereum.removeListener('accountsChanged',()=>handleAccountChange(setState));
+      window.ethereum.removeListener('chainChanged',()=>handleChainChange(setState));
+    }
+  },[])
+
   const handleWallet=async ()=>{
       try{
         setIsLoading(true);
         const {provider,selectedAccount,stakingContract,stakeTokenContract,chainId} = await connectWallet();
-      
         setState({provider,selectedAccount,stakingContract,stakeTokenContract,chainId})
       }catch(error){
         console.error("Error connecting wallet:",error.message)
@@ -37,7 +36,6 @@ const Wallet = ({children}) => {
         setIsLoading(false)
       }
      }
-  
   return (
     <div>
       <Web3Context.Provider value={state}>
@@ -45,7 +43,6 @@ const Wallet = ({children}) => {
       </Web3Context.Provider>
       {isLoading && <p>Loading...</p>}
       <Button onClick={handleWallet} type="button" label="Connect Wallet" />
-
      </div>
   )
 }
