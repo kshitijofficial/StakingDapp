@@ -1,0 +1,29 @@
+Button {
+  padding: 10px 28px 10px 28px;
+  color: var(--primary-color);
+  border-style: none;
+  background-color: white;
+  border-radius: 8px;
+}
+.navbar {
+  /* position: fixed; */
+  /* width: 100%;
+  height: 80px;
+  padding: 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; */
+  background-color: var(--bg-color);
+  border-bottom: 0.4px solid rgb(182, 182, 182);
+  z-index: 9999;
+}
+.Connect-Wallet {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Connect-Wallet Button {
+  margin-top: 24px;
+  width: 500px;
+}
