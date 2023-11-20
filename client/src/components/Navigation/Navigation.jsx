@@ -8,7 +8,6 @@ const Navigation = () => {
   return (
     <header className="navbar">
       <div className="navbar-btns">
-        <Wallet></Wallet>
         <ClaimReward />
       </div>
       <div className="navbar-acc">

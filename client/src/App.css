@@ -34,10 +34,11 @@
   display: flex;
   width: 500px;
   justify-content: flex-start;
-  margin-top: 36px;
+  margin-top: 18px;
 }
 
 .button-section button {
+  width: 100px !important;
   padding: 10px 18px 10px 18px;
   border-bottom-left-radius: 0px !important ;
   border-bottom-right-radius: 0px !important ;

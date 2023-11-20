@@ -51,8 +51,8 @@ const TokenApproval = () => {
   return (
     <>
       {transactionStatus && <div>{transactionStatus}</div>}
-      <form onSubmit={aproveToken} className="stake-amount-form">
-        <label className="stake-input-label">Token Approval:</label>
+      <form onSubmit={aproveToken} className="token-amount-form">
+        <label className="token-input-label">Token Approval:</label>
         <input type="text" ref={approvedTokenRef} />
         <Button onClick={aproveToken} type="submit" label="Token Approval" />
       </form>

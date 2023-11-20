@@ -28,10 +28,10 @@ const ClaimReward = () => {
     }
   };
   return (
-    <>
+    <div className="claim-reward">
       {transactionStatus && <div>{transactionStatus}</div>}
       <Button type="button" label="Claim Reward" onClick={claimReward} />
-    </>
+    </div>
   );
 };
 

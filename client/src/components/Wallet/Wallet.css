@@ -17,3 +17,13 @@ Button {
   border-bottom: 0.4px solid rgb(182, 182, 182);
   z-index: 9999;
 }
+.Connect-Wallet {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Connect-Wallet Button {
+  margin-top: 24px;
+  width: 500px;
+}
