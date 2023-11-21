@@ -41,7 +41,7 @@ const StakeAmount = ({ children }) => {
         return;
       }
 
-      setTransactionStatus(toast.error("Transaction is pending..."));
+      setTransactionStatus(toast.promise("Transaction is pending..."));
 
       // setTransactionStatus("Transaction is pending...");
       const transactionObj = await provider.getTransaction(transaction.hash);
@@ -77,7 +77,11 @@ const StakeAmount = ({ children }) => {
   return (
     <>
       <div className="staked-amount-no">
-        {transactionStatus && <div>{transactionStatus}</div>}
+        {/* {transactionStatus} */}
+        {/* //  && <div>{transactionStatus}
+          //  </div>
+         */}
+        {/* {transactionStatus && <div>{transactionStatus}</div>} */}
       </div>
 
       <form onSubmit={stakeToken} className="stake-amount-form">

@@ -10,7 +10,7 @@ const ClaimReward = () => {
     try {
       const transaction = await stakingContract.getReward();
       const receipt = await transaction.wait();
-      setTransactionStatus(toast.error("Transaction Is Pending..."));
+      setTransactionStatus(toast.promise("Transaction Is Pending..."));
       if (receipt.status === 1) {
         setTransactionStatus(toast.success("Transaction Is Successful"));
 

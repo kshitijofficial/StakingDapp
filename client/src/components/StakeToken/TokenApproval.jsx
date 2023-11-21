@@ -25,7 +25,7 @@ const TokenApproval = () => {
         stakingContract.target,
         amountToSend
       );
-      setTransactionStatus(toast.error("Transaction Is Pending..."));
+      setTransactionStatus(toast.promise("Transaction Is Pending..."));
       // setTransactionStatus("Transaction Is Pending...");
       const transactionObj = await provider.getTransaction(transaction.hash);
       const receipt = await transactionObj.wait();
@@ -50,7 +50,8 @@ const TokenApproval = () => {
   };
   return (
     <>
-      {transactionStatus && <div>{transactionStatus}</div>}
+      {/* {transactionStatus} */}
+      {/* {transactionStatus && <div>{transactionStatus}</div>} */}
       <form onSubmit={aproveToken} className="token-amount-form">
         <label className="token-input-label">Token Approval:</label>
         <input type="text" ref={approvedTokenRef} />
