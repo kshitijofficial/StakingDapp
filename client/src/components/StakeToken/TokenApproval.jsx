@@ -10,58 +10,61 @@ const TokenApproval = () => {
   const [transactionStatus, setTransactionStatus] = useState("");
   const approvedTokenRef = useRef();
 
-  const aproveToken = async (e) => {
+  const saveSettings = async (message) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(message);
+      }, 2000);
+    });
+  };
+
+  const approveToken = async (e) => {
     e.preventDefault();
     const amount = approvedTokenRef.current.value.trim();
     if (isNaN(amount) || amount <= 0) {
-      // console.error("Please enter a valid positive number.");
       toast.error("Please enter a valid positive number.");
-
       return;
     }
+
     const amountToSend = ethers.parseUnits(amount, 18).toString();
+
     try {
       const transaction = await stakeTokenContract.approve(
         stakingContract.target,
         amountToSend
       );
-      setTransactionStatus(toast.promise("Transaction Is Pending..."));
-      // setTransactionStatus("Transaction Is Pending...");
+
+      setTransactionStatus("Transaction Is Pending...");
+      toast.promise(saveSettings("Transaction Is Pending..."), {
+        loading: "Transaction Is Pending...",
+
+        success: <b>Transaction Successful</b>,
+        error: (errorMessage) => {
+          console.error(errorMessage);
+          setTransactionStatus("Transaction failed. Please try again.");
+        },
+      });
       const transactionObj = await provider.getTransaction(transaction.hash);
       const receipt = await transactionObj.wait();
-      if (receipt.status === 1) {
-        setTransactionStatus(toast.success("Transaction Is Successful"));
-        // setTransactionStatus("Transaction Is Successful");
-        setTimeout(() => {
-          setTransactionStatus("");
-        }, 5000);
-        approvedTokenRef.current.value = "";
-      } else {
-        setTransactionStatus(
-          toast.error("Transaction failed. Please try again.")
-        );
 
-        // setTransactionStatus("Transaction failed. Please try again.");
+      if (receipt.status !== 1) {
+        setTransactionStatus("Transaction failed. Please try again.");
       }
     } catch (error) {
-      // console.error("Token Approval Not Successful", error.message);
-      toast.error("Token Approval Not Successful", error.message);
+      console.error("Token Approval Not Successful", error.message);
+      setTransactionStatus("Token Approval Not Successful");
     }
   };
+
   return (
     <>
-      {/* {transactionStatus} */}
-      {/* {transactionStatus && <div>{transactionStatus}</div>} */}
-      <form onSubmit={aproveToken} className="token-amount-form">
+      <form onSubmit={approveToken} className="token-amount-form">
         <label className="token-input-label">Token Approval:</label>
         <input type="text" ref={approvedTokenRef} />
-        <Button onClick={aproveToken} type="submit" label="Token Approval" />
+        <Button onClick={approveToken} type="submit" label="Token Approval" />
       </form>
     </>
   );
 };
-export default TokenApproval;
 
-//transaction rolling until transaction is not successful - Rahul
-//use useCallback for window.ethereum
-//changing reward or staked amount re render whole component. Even though no use sometime
+export default TokenApproval;

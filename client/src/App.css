@@ -2,7 +2,6 @@
 
 :root {
   font-family: "Lexend", sans-serif;
-
   --primary-color: #ad00ff;
   --bg-color: #f2f2f2;
   --white: #ffffff;
@@ -54,9 +53,7 @@
 }
 .button-section button.active {
   color: var(--primary-color);
-  background-color: var(
-    --bg-color
-  ); /* Change background color for the active button */
+  background-color: var(--bg-color);
 }
 .button-section button:hover {
   color: rgb(47, 47, 47);

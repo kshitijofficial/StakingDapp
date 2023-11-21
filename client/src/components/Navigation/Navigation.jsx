@@ -1,5 +1,4 @@
 import ClaimReward from "../ClaimReward/ClaimReward";
-import Wallet from "../Wallet/Wallet";
 import ConnectedAccount from "./ConnectedAccount";
 import ConnectedNetwork from "./ConnectedNetwork";
 import "./Navigation.css";

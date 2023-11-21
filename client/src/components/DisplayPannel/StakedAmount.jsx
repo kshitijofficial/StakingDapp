@@ -13,7 +13,6 @@ const StakedAmount = () => {
   useEffect(() => {
     const fetchStakeRewardInfo = async () => {
       try {
-        //fetching staked amount of a user
         const amountStakedWei = await stakingContract.stakedBalance(
           selectedAccount
         );
@@ -23,10 +22,7 @@ const StakedAmount = () => {
         );
         setStakedAmount(amountStakedEth.toString());
       } catch (error) {
-        // toast.error("Error fetching data:", error.message);
         toast.error("Error fetching data:", error.message);
-
-        // console.error("Error fetching data:", error.message);
       }
     };
     stakingContract && fetchStakeRewardInfo();
