@@ -26,7 +26,7 @@ const Withdraw = () => {
       const transaction = await stakingContract.withdrawStakedTokens(
         amountToWithdraw
       );
-      setTransactionStatus(toast.error("Transaction Is Pending..."));
+      setTransactionStatus(toast.promise("Transaction Is Pending..."));
       // setTransactionStatus("Transaction Is Pending...");
       const transactionObj = await provider.getTransaction(transaction.hash);
       const receipt = await transactionObj.wait();
@@ -44,13 +44,13 @@ const Withdraw = () => {
         );
       }
     } catch (error) {
-      // console.error("Token Approval Not Successful", error.message);
-      toast.error("Token Approval Not Successful", error.message);
+      console.error("Token Approval Not Successful", error.message);
+      // toast.error("Token Approval Not Successful", error.message);
     }
   };
   return (
     <>
-      {transactionStatus && <div>{transactionStatus}</div>}
+      {/* {transactionStatus && <div>{transactionStatus}</div>} */}
       <form className="withdraw-form" onSubmit={withdrawToken}>
         <label>Withdraw Token:</label>
         <input type="text" ref={wihtdrawTokenRef} />
