@@ -48,7 +48,6 @@ const Wallet = ({ children }) => {
         chainId,
       });
     } catch (error) {
-      // console.error("Error connecting wallet:", error.message);
       toast.error("Error connecting wallet:", error.message);
     } finally {
       setIsLoading(false);

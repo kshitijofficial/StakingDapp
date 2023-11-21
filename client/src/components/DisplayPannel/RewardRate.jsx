@@ -12,12 +12,10 @@ const RewardRate = () => {
   useEffect(() => {
     const fetchStakeRewardInfo = async () => {
       try {
-        //fetching reward rate
         const rewardRateWei = await stakingContract.REWARD_TOKEN();
         const rewardRateEth = ethers.formatUnits(rewardRateWei.toString(), 18);
         setRewardRate(rewardRateEth.toString());
       } catch (error) {
-        // console.error("Error fetching data:", error.message);
         toast.error("Error fetching data:", error.message);
       }
     };

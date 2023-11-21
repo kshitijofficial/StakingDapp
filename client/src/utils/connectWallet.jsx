@@ -14,8 +14,6 @@ export const connectWallet = async () => {
     ];
     if (window.ethereum == null) {
       throw new Error(toast.error("Metamask is not installed"));
-
-      // throw new Error("Metamask is not installed");
     }
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
@@ -27,8 +25,6 @@ export const connectWallet = async () => {
     let selectedAccount = accounts[0];
     if (!selectedAccount) {
       throw new Error(toast.error("No Ethereum accounts available"));
-
-      // throw new Error("No Ethereum accounts available");
     }
 
     provider = new ethers.BrowserProvider(window.ethereum);
@@ -43,8 +39,7 @@ export const connectWallet = async () => {
       stakeTokenAbi,
       signer
     );
-    // const amountStaked = await stakeTokenContract.decimals();
-    // console.log(amountStaked)
+
     return {
       provider,
       selectedAccount,
@@ -53,7 +48,6 @@ export const connectWallet = async () => {
       chainId,
     };
   } catch (error) {
-    // console.error(error);
     toast.error("something went wrong");
 
     throw error;

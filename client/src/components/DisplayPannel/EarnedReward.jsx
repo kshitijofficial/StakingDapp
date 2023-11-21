@@ -12,14 +12,12 @@ const EarnedReward = () => {
   useEffect(() => {
     const fetchStakeRewardInfo = async () => {
       try {
-        //fetching earned amount of a user
         const rewardValueWei = await stakingContract.earned(selectedAccount);
         const rewardValueEth = ethers
           .formatUnits(rewardValueWei, 18)
           .toString();
         setRewardVal(rewardValueEth);
       } catch (error) {
-        // console.error("Error fetching data:", error.message);
         toast.error("Error fetching data:", error.message);
       }
     };
